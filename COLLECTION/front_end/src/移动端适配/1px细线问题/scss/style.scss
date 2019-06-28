@@ -1,0 +1,87 @@
+.background-gradient-1px {
+    background:
+        linear-gradient(#000, #000 100%, transparent 100%) left / 1px 100% no-repeat,
+        linear-gradient(#000, #000 100%, transparent 100%) right / 1px 100% no-repeat,
+        linear-gradient(#000, #000 100%, transparent 100%) top / 100% 1px no-repeat,
+        linear-gradient(#000, #000 100%, transparent 100%) bottom / 100% 1px no-repeat
+}
+
+/* 
+.border_1px::after {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    background: linear-gradient(red, blue);
+    content: '';
+    z-index: -1;
+    border-radius: 16px;
+} */
+
+/* 利用伪类+transform解决 */
+
+/* 1.设置单条border */
+/* .border_1px {
+    position: relative;
+    border: none;
+}
+
+.border_1px::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #000;
+    transform-origin: 50% 0%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:2) {
+    .border_1px:before {
+        transform: scaleY(0.5);
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:3) {
+    .border_1px:before {
+        transform: scaleY(0.33);
+    }
+} */
+
+/* 2.设置四条边 */
+.border_1px_arround {
+    position: relative;
+    border: none;
+    border-radius: 50%;
+}
+// asfasfass
+/** asfassssssssssssss */
+.border_1px_arround::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+    transform-origin: 0 0;
+    border-radius: 50%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:2) {
+    .border_1px_arround:before {
+        width: 200%;
+        height: 200%;
+        transform: scale(0.5, 0.5);
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:3) {
+    .border_1px_arround:before {
+        width: 300%;
+        height: 300%;
+        transform: scale(0.3333, 0.3333);
+    }
+}
