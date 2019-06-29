@@ -37,8 +37,7 @@ function transformTypescript() {
 }
 
 function watchSpace() {
-
-  watch(watchFilesPath, parallel(transformSassToCss))
+  watch(sassFilesPath, parallel(transformSassToCss))
 }
 
 function defaultTask(cb) {
