@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { src, watch, series, dest, task } = require('gulp')
+const { src, watch, series, parallel, dest, task } = require('gulp')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
 const csscomb = require('gulp-csscomb')
@@ -10,10 +10,13 @@ const autoprefixer = require('gulp-autoprefixer')
 
 const PATH_SEP = path.sep
 
-const watchFilesPath = ['**/*.{scss,sass}', '!node_modules/**']
+const ignoreFilesPath = ['!node_modules/**']
+const sassFilesPath = ['**/*.{scss,sass}', ...ignoreFilesPath]
+const TsFilesPath = ['' , ...ignoreFilesPath]
+
 
 function transformSassToCss() {
-  return src(watchFilesPath)
+  return src(sassFilesPath)
     .pipe(sass())
     .pipe(csscomb())
     .pipe(autoprefixer())
@@ -29,15 +32,33 @@ function transformSassToCss() {
     .pipe(dest('./'))
 }
 
-function watchSpace() {
-  watch(watchFilesPath, series([transformSassToCss]))
+function transformTypescript() {
+
 }
 
-task('dev', series([transformSassToCss, watchSpace]))
+function watchSpace() {
 
+  watch(watchFilesPath, parallel(transformSassToCss))
+}
 
 function defaultTask(cb) {
   console.log('wellcome my_encyclopaedia!')
-  cb();
+  cb()
 }
-exports.default = defaultTask
+
+task('dev', series(
+  parallel(
+    transformSassToCss,
+
+  ),
+  watchSpace
+))
+
+task('pro', series(
+  parallel(
+    transformSassToCss,
+
+  ),
+  watchSpace
+))
+task('default', series(defaultTask))
